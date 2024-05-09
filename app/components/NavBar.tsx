@@ -17,15 +17,15 @@ const NavBar = () => {
         <NavLinks to="/" className="">
           Home
         </NavLinks>
-        <NavLinks to="/projects" className="">
+        {/* <NavLinks to="/projects" className="">
           Projects
-        </NavLinks>
+        </NavLinks> */}
         <NavLinks to="/articles" className="">
           Articles
         </NavLinks>
-        <NavLinks to="/about" className="">
+        {/* <NavLinks to="/about" className="">
           About Me
-        </NavLinks>
+        </NavLinks> */}
       </nav>
       <div className="absolute left-[50%] top-1 translate-x-[-50%]">
         <Logo />

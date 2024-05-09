@@ -1,5 +1,8 @@
 import { ArticleMetaData, Article } from "@/types";
 import { compileMDX } from "next-mdx-remote/rsc";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import rehypePrettyCode from "rehype-pretty-code";
 
 type FileTree = {
   tree: [
@@ -16,6 +19,9 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       "X-GitHub-Api-Version": "2022-11-28",
     },
+    next: {
+      revalidate: 60,
+    },
   });
 
   if (!res.ok) return undefined;
@@ -26,6 +32,17 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
     source: rawMDX,
     options: {
       parseFrontmatter: true,
+      mdxOptions: {
+        rehypePlugins: [
+          rehypeSlug,
+          [
+            rehypeAutolinkHeadings,
+            {
+              behavior: "append",
+            },
+          ],
+        ],
+      },
     },
   });
 
@@ -48,6 +65,9 @@ export async function getArticlesMetaData(): Promise<ArticleMetaData[] | undefin
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       "X-GitHub-Api-Version": "2022-11-28",
+    },
+    next: {
+      revalidate: 60,
     },
   });
 

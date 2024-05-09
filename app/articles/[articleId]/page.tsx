@@ -1,9 +1,10 @@
+import RenderBlogContent from "@/app/components/RenderBlogContent";
 import getFormattedDate from "@/lib/getFormattedDate";
 import { getArticlesMetaData, getArticleByName } from "@/lib/githubarticles";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export const revalidate = 0;
+export const revalidate = 10;
 
 type Props = {
   params: {
@@ -46,17 +47,20 @@ export default async function Article({ params: { articleId } }: Props) {
   ));
 
   return (
-    <div className="prose prose-xl">
-      <h2 className="text-3xl mt-4 mb-0">{articleMetaData.title}</h2>
-      <p className="mt-0 text-sm">{pubDate}</p>
-      <article>{content}</article>
-      <section>
-        <h2>Related:</h2>
-        <div className="flex flex-row gap-4">{tags}</div>
-      </section>
-      <p className="mb-10">
-        <Link href="/">Back to Home</Link>
+    <section>
+      <div className="text-center">
+        <h1 className="capitalize text-5xl font-semibold mt-16 mb-6 ">{articleMetaData.title}</h1>
+        <p className="mt-0 text-sm font-semibold mb-16">Published On: {pubDate}</p>
+      </div>
+      <div className="grid grid-cols-12 gap-16 mt-8 px-32">
+        <div className="col-span-12 ">
+          <RenderBlogContent content={content} />
+        </div>
+      </div>
+
+      <p className="mt-16 mb-10">
+        <Link href="/articles">Back to Home</Link>
       </p>
-    </div>
+    </section>
   );
 }
