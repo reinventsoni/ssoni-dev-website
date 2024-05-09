@@ -85,8 +85,6 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
     },
     content,
   };
-  console.log("Frontmatter", frontmatter);
-  console.log("CONTENT: ", content);
   return articleObj;
 }
 

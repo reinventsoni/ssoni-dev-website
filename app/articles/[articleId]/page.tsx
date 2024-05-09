@@ -29,9 +29,6 @@ export async function generateMetadata({ params: { articleId } }: Props) {
     };
   }
 
-  // return {
-  //   title: article.articleMetaData.title,
-  // };
   return article.articleMetaData;
 }
 
