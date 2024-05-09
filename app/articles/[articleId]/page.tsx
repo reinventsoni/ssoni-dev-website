@@ -45,12 +45,12 @@ export default async function Article({ params: { articleId } }: Props) {
   ));
 
   return (
-    <section>
-      <div className="text-center">
-        <h1 className="capitalize text-5xl font-semibold mt-16 mb-6 ">{articleMetaData.title}</h1>
-        <p className="mt-0 text-sm font-semibold mb-16">Published On: {pubDate}</p>
+    <section className="px-8 sm:px-16">
+      <div>
+        <h1 className="capitalize text-3xl md:text-4xl lg:text-5xl font-bold mt-12 mb-4 ">{articleMetaData.title}</h1>
+        <p className="mt-0 text-sm font-semibold mb-8">Published On: {pubDate}</p>
       </div>
-      <div className="grid grid-cols-12 gap-16 mt-8 px-32">
+      <div className="grid grid-cols-12 mt-8">
         <div className="col-span-12 ">
           <RenderBlogContent content={content} />
         </div>
