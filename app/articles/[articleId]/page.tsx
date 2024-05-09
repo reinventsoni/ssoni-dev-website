@@ -29,9 +29,10 @@ export async function generateMetadata({ params: { articleId } }: Props) {
     };
   }
 
-  return {
-    title: article.articleMetaData.title,
-  };
+  // return {
+  //   title: article.articleMetaData.title,
+  // };
+  return article.articleMetaData;
 }
 
 export default async function Article({ params: { articleId } }: Props) {
@@ -39,7 +40,7 @@ export default async function Article({ params: { articleId } }: Props) {
   if (!article) notFound();
 
   const { articleMetaData, content } = article;
-  const pubDate = getFormattedDate(articleMetaData.date);
+  const pubDate = getFormattedDate(articleMetaData.publishedAt);
   const tags = articleMetaData.tags.map((tag: string, i: string) => (
     <Link key={i} href={`/tags/${tag}`}>
       {tag}

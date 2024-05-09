@@ -4,6 +4,7 @@ import "./globals.css";
 import { cx } from "./utils";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import { siteMetadata } from "@/lib/siteMetaData";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,8 +19,34 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Sanjay Soni - Developer Website",
-  description: "Software Engineering and Application Development focused website of Sanjay Soni",
+  metadataBase: new URL(siteMetadata.siteUrl),
+  title: {
+    template: `%s | ${siteMetadata.title}`,
+    default: siteMetadata.title, // a default is required when creating a template
+  },
+  description: siteMetadata.description,
+  openGraph: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: siteMetadata.siteUrl,
+    siteName: siteMetadata.title,
+    images: [siteMetadata.socialBanner],
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -2,7 +2,9 @@ import { ArticleMetaData, Article } from "@/types";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
-import rehypePrettyCode from "rehype-pretty-code";
+import MDXImage from "@/app/components/mdxcomponents/MDXImage";
+import MDXVideo from "@/app/components/mdxcomponents/MDXVideo";
+import { siteMetadata } from "./siteMetaData";
 
 type FileTree = {
   tree: [
@@ -28,8 +30,21 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
   const rawMDX = await res.text();
   if (rawMDX === "404: Not Found") return undefined;
 
-  const { frontmatter, content } = await compileMDX<{ title: string; date: string; tags: string[] }>({
+  const { frontmatter, content } = await compileMDX<{
+    title: string;
+    description: string;
+    image: string;
+    publishedAt: string;
+    updatedAt: string;
+    author: string;
+    isPublished: string;
+    tags: string[];
+  }>({
     source: rawMDX,
+    components: {
+      MDXVideo,
+      MDXImage,
+    },
     options: {
       parseFrontmatter: true,
       mdxOptions: {
@@ -51,11 +66,27 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
     articleMetaData: {
       id,
       title: frontmatter.title,
-      date: frontmatter.date,
+      description: frontmatter.description,
+      publishedAt: frontmatter.publishedAt,
+      updatedAt: frontmatter.updatedAt,
+      author: frontmatter.author,
       tags: frontmatter.tags,
+      openGraph: {
+        title: frontmatter.title,
+        description: frontmatter.description,
+        author: frontmatter.author,
+        url: siteMetadata.siteUrl + `/articles/${id}`,
+        siteName: siteMetadata.title,
+        locale: "en_US",
+        type: "article",
+        publishedAt: frontmatter.publishedAt,
+        updatedAt: frontmatter.updatedAt,
+      },
     },
     content,
   };
+  console.log("Frontmatter", frontmatter);
+  console.log("CONTENT: ", content);
   return articleObj;
 }
 
@@ -83,6 +114,5 @@ export async function getArticlesMetaData(): Promise<ArticleMetaData[] | undefin
       articlesMeta.push(articleMetaData);
     }
   }
-  console.log(articlesMeta);
-  return articlesMeta.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return articlesMeta.sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }

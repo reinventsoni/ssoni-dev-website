@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function BlogListItem({ articleMeta }: Props) {
-  const { id, title, date } = articleMeta;
+  const { id, title, publishedAt } = articleMeta;
   //const formattedDate = getFormattedDate(date);
   return (
     <li className="mt-4 text-2xl">
@@ -16,7 +16,7 @@ export default function BlogListItem({ articleMeta }: Props) {
         {title}
       </Link>
       <br />
-      <p className="text-sm mt-1">{date}</p>
+      <p className="text-sm mt-1">{publishedAt}</p>
     </li>
   );
 }
