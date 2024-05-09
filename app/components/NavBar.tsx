@@ -9,11 +9,18 @@ import { motion } from "framer-motion";
 const NavBar = () => {
   return (
     <header
-      className="w-full px-32 py-8 font-medium 
-    flex items-center justify-between 
-    bg-slate-300 sticky top-0 drop-shadow-xl z-10"
+      className="bg-slate-300 sticky top-0 drop-shadow-xl z-10
+      flex flex-col md:flex-row
+      justify-between items-center
+      px-4 md:px-16
+      py-2
+      font-medium 
+      "
     >
-      <nav className="flex flex-row gap-x-6">
+      <div>
+        <Logo />
+      </div>
+      <nav className="flex flex-row gap-x-6 mt-2 md:mt-0">
         <NavLinks to="/" className="">
           Home
         </NavLinks>
@@ -27,10 +34,10 @@ const NavBar = () => {
           About Me
         </NavLinks> */}
       </nav>
-      <div className="absolute left-[50%] top-1 translate-x-[-50%]">
-        <Logo />
-      </div>
-      <nav className="flex items-center justify-center flex-wrap flex-row gap-x-6">
+      <nav
+        className="hidden md:flex items-center justify-center flex-wrap flex-row gap-x-6
+      "
+      >
         <motion.a
           href="https://www.linkedin.com"
           target={"_blank"}

@@ -4,30 +4,31 @@ import profilePic from "../../public/images/developer-pic-1.png";
 import { profile } from "console";
 
 const HeroSection = () => {
+  const imageStyle = {
+    width: "auto",
+    height: "90%",
+  };
   return (
-    <section className="px-32 w-full flex flex-row border-2">
-      <div className="w-1/2 flex flex-col justify-center items-center relative h-[80vh] overflow-hidden">
-        <Image
-          src={profilePic}
-          alt="Hero Image - Developer Profile"
-          layout="contain"
-          objectFit="cover"
-          objectPosition="center"
-        />
+    <section className="px-6 pb-8 pt-8 flex flex-col sm:flex-row min-h-[80svh]">
+      <div
+        className="flex flex-row justify-center items-center
+      sm:w-1/2"
+      >
+        <Image src={profilePic} alt="Hero Image - Developer Profile" style={imageStyle} />
       </div>
-      <div className="px-16 w-1/2 flex flex-col justify-center">
-        <h1 className="capitalize text-4xl font-bold">
-          Creator Mode Activated: Bringing Vision to Reality with Design and Development
+      <div className="sm:w-1/2 md:w-2/5 flex flex-col justify-center">
+        <h1 className="capitalize text-2xl md:text-3xl lg:text-4xl font-extrabold text-center md:text-left ">
+          Creator Mode ON: Bringing Ideas and Vision to Reality with Design and Development
         </h1>
-        <p className="text-base font-medium mt-12">
+        <p className="font-medium text-lg lg:text-xl mt-6">
           <span>
-            After traversing the full path, starting as a Junior Developer to working as a Director in Big 4, I set out
-            on reinventing myself and capability to create the digital products independently was the first goal.
+            Reinventing myself, by reigniting the capability to imagine the digital products and bring them to life by
+            software design and coding
           </span>
           <span>
             <br />
             <br />
-            This space on the web is to showcase the projects, knowledge acquired and learning on that journey
+            This site is to showcase the projects, knowledge acquired and learning on that journey
           </span>
         </p>
       </div>
