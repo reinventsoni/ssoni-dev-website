@@ -14,6 +14,8 @@ type FileTree = {
   ];
 };
 
+const revalidate = 0;
+
 export async function getArticleByName(fileName: string): Promise<Article | undefined> {
   const res = await fetch(`https://raw.githubusercontent.com/reinventsoni/blogging/main/${fileName}`, {
     headers: {
@@ -22,11 +24,13 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
       "X-GitHub-Api-Version": "2022-11-28",
     },
     next: {
-      revalidate: 60,
+      revalidate: revalidate,
     },
   });
 
-  if (!res.ok) return undefined;
+  if (!res.ok) {
+    return undefined;
+  }
   const rawMDX = await res.text();
   if (rawMDX === "404: Not Found") return undefined;
 
@@ -62,6 +66,7 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
   });
 
   const id = fileName.replace(/\.mdx$/, "");
+
   const articleObj: Article = {
     articleMetaData: {
       id,
@@ -85,6 +90,7 @@ export async function getArticleByName(fileName: string): Promise<Article | unde
     },
     content,
   };
+
   return articleObj;
 }
 
@@ -96,7 +102,7 @@ export async function getArticlesMetaData(): Promise<ArticleMetaData[] | undefin
       "X-GitHub-Api-Version": "2022-11-28",
     },
     next: {
-      revalidate: 60,
+      revalidate: revalidate,
     },
   });
 
@@ -112,5 +118,6 @@ export async function getArticlesMetaData(): Promise<ArticleMetaData[] | undefin
       articlesMeta.push(articleMetaData);
     }
   }
+
   return articlesMeta.sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }

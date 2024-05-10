@@ -25,7 +25,7 @@ export async function generateMetadata({ params: { articleId } }: Props) {
   const article = await getArticleByName(`${articleId}.mdx`); //deduped
   if (!article) {
     return {
-      title: "Post Not Found",
+      title: "In Function generateMetadata on [articleId]/page.tsx. Article Not Found",
     };
   }
 
@@ -33,7 +33,7 @@ export async function generateMetadata({ params: { articleId } }: Props) {
 }
 
 export default async function Article({ params: { articleId } }: Props) {
-  const article = await getArticleByName(`${articleId}.mdx`);
+  const article = await getArticleByName(encodeURIComponent(`${articleId}.mdx`));
   if (!article) notFound();
 
   const { articleMetaData, content } = article;
@@ -57,7 +57,7 @@ export default async function Article({ params: { articleId } }: Props) {
       </div>
 
       <p className="mt-16 mb-10">
-        <Link href="/articles">Back to Home</Link>
+        <Link href="/articles">Back to Articles</Link>
       </p>
     </section>
   );

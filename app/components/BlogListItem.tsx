@@ -10,6 +10,7 @@ type Props = {
 export default function BlogListItem({ articleMeta }: Props) {
   const { id, title, publishedAt } = articleMeta;
   const formattedDate = getFormattedDate(publishedAt);
+
   return (
     <li className="mt-4 text-2xl">
       <Link className="underline hover:text-black/70" href={`/articles/${id}`}>
