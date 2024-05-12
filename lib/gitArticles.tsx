@@ -11,8 +11,8 @@ const revalidate = 0;
 const GITTreeURL = `https://api.github.com/repos/${process.env.GITHUB_OWNER}/${process.env.GITHUB_REPO}/git/trees/${process.env.GITHUB_BRANCH}?recursive=1`;
 
 export async function getChildTreeData(url: string, parent: string): Promise<GITArticle[] | undefined> {
-  let detaillog = true;
-  let childResultLog = true;
+  let detaillog = false;
+  let childResultLog = false;
 
   if (detaillog) console.log("In Get Child Tree Method");
   if (detaillog) console.log("In getChildTree Method: Child Object URL Called is: ", url);

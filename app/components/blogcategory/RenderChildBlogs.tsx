@@ -13,7 +13,7 @@ const RenderChildBlog = ({ article }: Props) => {
   return (
     <div className="border-2 border-black rounded-lg">
       <div className="flex flex-row items-center justify-center text-dark">
-        <Link href={gitMeta.JSpathString} className="w-full h-full overflow-hidden">
+        <Link href={`/blogs/${gitMeta.JSpathString}`} className="w-full h-full overflow-hidden">
           <Image
             src="/images/blogs/carlos-muza-hpjSkU2UYSU-unsplash.jpg"
             width={500}
@@ -23,7 +23,7 @@ const RenderChildBlog = ({ article }: Props) => {
           />
         </Link>
         <div className="flex flex-col w-full mt-4 px-4">
-          <Link href={gitMeta.JSpathString} className="h-full overflow-hidden">
+          <Link href={`/blogs/${gitMeta.JSpathString}`} className="h-full overflow-hidden">
             <h2 className=" font-semibold text-lg capitalize">{frontmatter.title}</h2>
             <p className="font-semibold text-sm">{frontmatter.description}</p>
             <p className="text-sm mt-1">{publishedAt}</p>

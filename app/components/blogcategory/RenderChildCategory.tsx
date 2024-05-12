@@ -11,7 +11,7 @@ const RenderChildCategory = ({ article }: Props) => {
   const { frontmatter, content, gitMeta } = article;
   return (
     <div className="flex flex-col items-center text-dark mb-8">
-      <Link href={gitMeta.JSpathString} className="h-full overflow-hidden">
+      <Link href={`/blogs/${gitMeta.JSpathString}`} className="h-full overflow-hidden">
         <Image
           src="/images/blogs/carlos-muza-hpjSkU2UYSU-unsplash.jpg"
           width={400}

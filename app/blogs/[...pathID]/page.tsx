@@ -15,6 +15,16 @@ type Props = {
   };
 };
 
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export async function generateStaticParams() {
+  const gitTreeData = await getGITTreeItemsMetaData();
+  if (!gitTreeData) return [];
+
+  return gitTreeData.map((obj) => obj.path).map((path) => path.replace(/\.mdx$/, ""));
+}
+
 export default async function Page({ params: { pathID } }: Props) {
   const pathString = pathID.join("/");
 
@@ -24,27 +34,15 @@ export default async function Page({ params: { pathID } }: Props) {
   const { frontmatter, content, gitMeta } = article;
 
   let child: GITArticle[] = [];
-  let hasChild = false;
-
   let categoryChild: GITArticle[] = [];
-  let hasCategoryChild = false;
-
   let blogChild: GITArticle[] = [];
-  let hasBlogChild = false;
 
   if (gitMeta.type == "tree") {
     const result = await getChildTreeData(gitMeta.url, gitMeta.JSpathString);
-    if (!result) console.log("Child Elements not found for this Tree Node");
     if (result) {
       child = result;
-      hasChild = true;
-
       blogChild = child.filter((obj) => obj.gitMeta.type === "blob");
       categoryChild = child.filter((obj) => obj.gitMeta.type === "tree");
-      console.log("Child Blog Length: ", blogChild.length);
-      // console.log("Child Blogs as follows: ", blogChild);
-      // console.log("Child Category as follows:", categoryChild);
-      console.log("Child Category Length: ", categoryChild.length);
     }
   }
 
