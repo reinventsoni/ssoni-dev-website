@@ -15,15 +15,15 @@ type Props = {
   };
 };
 
-export const dynamic = "force-static";
-export const revalidate = false;
+// export const dynamic = "force-static";
+// export const revalidate = false;
 
-export async function generateStaticParams() {
-  const gitTreeData = await getGITTreeItemsMetaData();
-  if (!gitTreeData) return [];
+// export async function generateStaticParams() {
+//   const gitTreeData = await getGITTreeItemsMetaData();
+//   if (!gitTreeData) return [];
 
-  return gitTreeData.map((obj) => obj.path).map((path) => path.replace(/\.mdx$/, ""));
-}
+//   return gitTreeData.map((obj) => obj.path).map((path) => path.replace(/\.mdx$/, ""));
+// }
 
 export default async function Page({ params: { pathID } }: Props) {
   const pathString = pathID.join("/");
