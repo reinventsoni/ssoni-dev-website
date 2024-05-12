@@ -27,7 +27,7 @@ const NavBar = () => {
         {/* <NavLinks to="/projects" className="">
           Projects
         </NavLinks> */}
-        <NavLinks to="/articles" className="">
+        <NavLinks to="/article" className="">
           Articles
         </NavLinks>
         {/* <NavLinks to="/about" className="">

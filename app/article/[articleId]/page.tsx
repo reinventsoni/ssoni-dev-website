@@ -1,5 +1,6 @@
 import RenderBlogContent from "@/app/components/RenderBlogContent";
 import getFormattedDate from "@/lib/getFormattedDate";
+import { getGITTreeItemsMetaData } from "@/lib/gitArticles";
 import { getArticlesMetaData, getArticleByName } from "@/lib/githubarticles";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export async function generateStaticParams() {
+  const gitTreeData = await getGITTreeItemsMetaData();
   const articlesMeta = await getArticlesMetaData(); //deduped
   if (!articlesMeta) return [];
 
@@ -25,7 +27,7 @@ export async function generateMetadata({ params: { articleId } }: Props) {
   const article = await getArticleByName(`${articleId}.mdx`); //deduped
   if (!article) {
     return {
-      title: "In Function generateMetadata on [articleId]/page.tsx. Article Not Found",
+      title: "Article Not Found",
     };
   }
 
